@@ -1,32 +1,32 @@
+#!/usr/bin/env python
 import os
 
-
 from aux import mergeNames
+
 from optparse import OptionParser
+
+def move_file_to_dir(file_path, directory_path):
+
+    if os.path.isfile(file_path):
+
+       if not os.path.isdir(directory_path): os.system("mkdir -p %s"%(directory_path))
+
+       os.system("mv %s %s"%(file_path, directory_path))
+
+    else:
+
+       print 'file not found:', file_path
+
+    return
+
 parser=OptionParser()
 parser.add_option("-d","--directory",dest="dir",type="str",default="nodir",help="working DIRECTORY",metavar="DIRECTORY")
 parser.add_option("-s","--finalstring",dest="fstr",type="str",default="nostr",help="final STRING",metavar="STRING")
 
 (opts, args) = parser.parse_args()
 
-try:
-    os.system("mkdir %s/Results"%opts.dir)
-    os.system("mkdir %s/Results/Raw"%opts.dir)
-    for name in mergeNames:
-        os.system("mkdir %s/Results/Raw/%s"%(opts.dir, mergeNames[name]))
-    os.system("mkdir %s/Results/Raw/Root"%opts.dir)
-    os.system("mkdir %s/Results/Raw/Global"%opts.dir)
-except:
-    print "err!"
-    pass
-
-
 for filename in mergeNames.keys():
-    os.system("cp Jobs/%s.%s.csv %s/Results/Raw/%s"%(filename, opts.fstr, opts.dir, mergeNames[filename]))
-    os.system("rm -f Jobs/%s.%s.csv"%(filename, opts.fstr))
+    move_file_to_dir('Jobs/%s.%s.csv'%(filename, opts.fstr), "%s/Results/Raw/%s"%(opts.dir, mergeNames[filename]))
 
-
-os.system("cp Jobs/output.global.%s.csv %s/Results/Raw/Global"%(opts.fstr, opts.dir))
-os.system("rm -f Jobs/output.global.%s.csv"%opts.fstr)
-os.system("cp Jobs/histos.%s.root %s/Results/Raw/Root"%(opts.fstr, opts.dir))
-os.system("rm -f Jobs/histos.%s.root"%opts.fstr)
+move_file_to_dir("Jobs/output.global.%s.csv"%(opts.fstr), "%s/Results/Raw/Global"%(opts.dir))
+move_file_to_dir("Jobs/histos.%s.root"      %(opts.fstr), "%s/Results/Raw/Root"  %(opts.dir))
