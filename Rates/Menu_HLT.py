@@ -5918,3 +5918,8 @@ rateLowMap = {
 seedToGroupMap = {
 }
 
+datasetMap = {
+
+  'HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_v': ['Dummy'],
+  'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_v'      : ['Dummy'],
+}
