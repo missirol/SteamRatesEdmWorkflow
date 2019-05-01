@@ -5920,6 +5920,34 @@ seedToGroupMap = {
 
 datasetMap = {
 
-  'HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_v': ['Dummy'],
-  'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_v'      : ['Dummy'],
+  'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v': ['top_DoubleElectron'],
+  'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v'   : ['top_DoubleElectron'],
+
+  'HLT_Ele27_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele28_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele30_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele32_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele35_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele38_WPTight_Gsf_v': ['top_SingleElectron'],
+  'HLT_Ele40_WPTight_Gsf_v': ['top_SingleElectron'],
+
+  'HLT_Ele28_eta2p1_WPTight_Gsf_HT150_v'                    : ['top_EleJet'],
+  'HLT_Ele30_eta2p1_WPTight_Gsf_CentralPFJet35_EleCleaned_v': ['top_EleJet'],
+
+  'HLT_IsoMu24_eta2p1_v': ['top_SingleMuon'],
+  'HLT_IsoMu24_v'       : ['top_SingleMuon'],
+  'HLT_IsoMu27_v'       : ['top_SingleMuon'],
+
+  'HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v': ['tmp_ElectronMuon'],
+  'HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v'   : ['tmp_ElectronMuon'],
+  'HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v': ['tmp_ElectronMuon'],
+  'HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v'   : ['tmp_ElectronMuon'],
+
+  'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v': ['top_DoubleMuon'],
+  'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_v'  : ['top_DoubleMuon'],
+  'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v'        : ['top_DoubleMuon'],
+  'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v'           : ['top_DoubleMuon'],
+
+  'HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_v': ['top_HTJetBTag'],
+  'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_v'      : ['top_HTJetBTag'],
 }
