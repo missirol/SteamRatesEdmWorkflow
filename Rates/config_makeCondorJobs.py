@@ -13,7 +13,6 @@ Submitting all jobs on batch:
 import os
 import sys
 
-
 '''
 --------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
 '''
@@ -32,7 +31,7 @@ file_type = "RAW"
 #file_type = "L1Accept"
 
 #Directory where the top of your CMSSW release is located
-cmsswDir = '/afs/cern.ch/work/m/missirol/private/devel_dqmOffline/dqmutils/CMSSW_10_6_0_pre2/src'
+cmsswDir = '/afs/cern.ch/work/m/missirol/private/edm_steam_rates/CMSSW_10_6_0_pre4/src'
 #cmsswDir = "/afs/cern.ch/work/d/dbeghin/Work/Rates/CMSSW_10_1_9_patch1/src"
 
 #Json file
