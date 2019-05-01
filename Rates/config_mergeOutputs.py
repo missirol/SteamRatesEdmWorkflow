@@ -6,12 +6,11 @@ The resulting .csv and .root files will be located in the 'Results' directory. T
 import os
 import sys
 
-
 '''
 --------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
 '''
 #Write the average instant lumi of the json you ran over
-lumi_in =  1.57e34
+lumi_in = 1.7617e34
 
 #Write the TARGET lumi for which you wish to calculate rates
 lumi_target = 2.0e34
@@ -61,9 +60,3 @@ if makeFigures:
     comm2 = "python Draw.py"
     if maps == "allmaps": comm2 += " -m yes"
     os.system(comm2)
-
-
-
-
-
-
