@@ -1,5 +1,5 @@
 '''
-                       Merge outputs from jobs send on the batch queue,
+                       Merge outputs from jobs sent on the batch queue,
                      scale them to the target luminosity, sort the rates
 ''' 
 import ROOT
@@ -418,4 +418,3 @@ if opts.figures:
             newdD_histo_sorted.Write()
         
         root_file.Close()
-

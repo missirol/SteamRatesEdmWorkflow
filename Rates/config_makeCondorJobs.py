@@ -10,9 +10,6 @@ Submitting all jobs on batch:
 ./sub_total.jobb
 '''
 
-import os
-import sys
-
 '''
 --------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
 '''
@@ -53,19 +50,17 @@ n = 5
 #Job flavour
 flavour = "workday"
 '''
---------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
+-------------------------------------------------------------------------------------------
 '''
 
+# run the script
+command = "python condorScriptForRates.py -j %s -e %s -f %s -m %s" %(json_file, cmsswDir, file_type, maps)
 
-#run the script
-command = ""
 if makeInputFilesList:
-    command = "python condorScriptForRates.py -j %s -e %s -i %s -f %s" %(json_file, cmsswDir, inputFilesDir, file_type)
-else:
-    command = "python condorScriptForRates.py -j %s -e %s -f %s" %(json_file, cmsswDir, file_type)
+   command += " -i %s" %(inputFilesDir)
 
 if isUnusual:
-    command += " -n %s -q %s" %(n, flavour)
+   command += " -n %s -q %s" %(n, flavour)
 
-command += " -m %s" %maps
+import os
 os.system(command)

@@ -1,10 +1,7 @@
-import time
-import datetime
+#!/usr/bin/env python
 import os
-import sys
-from aux import runCommand
 
-MYDIR=os.getcwd()
+MYDIR = os.getcwd()
 #folder = '/store/group/dpg_trigger/comm_trigger/TriggerStudiesGroup/STEAM/Summer16_FlatPU28to62/HLTRates_v4p2_V2_1p25e34_MC_2017feb09J'
 
 #get inputs
@@ -32,15 +29,17 @@ help_text += '\n<flavour> (optional) = job flavour (default=workday)\n'
 help_text += '\n<maps> (optional) = "nomaps" (default option) or "somemaps" or "allmaps""\n'
 
 if opts.jsonFile == "nojson" or opts.cmsEnv == "noenv":
-    print error_text
-    print help_text
-    sys.exit(2)
+
+   print error_text
+   print help_text
+
+   import sys
+   sys.exit(2)
 
 print 'json = %s'%opts.jsonFile
 print 'CMSSWrel = %s'%opts.cmsEnv
 print 'file type = %s'%opts.fileType
 print 'job flavour = %s'%opts.jobFlavour
-
 
 #make directories for the jobs
 try:
@@ -50,12 +49,6 @@ try:
 except:
     print "err!"
     pass
-
-
-sub_total = open("sub_total.jobb","w")
-sub_total.write("rm Results/Raw/*/*.csv\n")
-sub_total.write("rm Results/Raw/*/*.root\n")
-
 
 if opts.inputFilesDir != "no":
     print 'Making a copy of the old filesInput.py : filesInput_old.py'
@@ -90,7 +83,6 @@ for infile in fileInputNames:
     tmp_job_dir = MYDIR+'/Jobs/sub_raw/'+tmp_jobname
     os.system("chmod +x %s"%(tmp_job_dir))
 
-
     tmp_text = tmp_text + tmp_job_dir + "\n"
     k+=1
     if k==loop_mark or i==len(fileInputNames):
@@ -115,5 +107,10 @@ condor_str += "queue filename matching ("+MYDIR+"/Jobs/Job_*/*.sh)\n"
 condor_name = MYDIR+"/condor_cluster.sub"
 condor_file = open(condor_name, "w")
 condor_file.write(condor_str)
+
+sub_total = open("sub_total.jobb","w")
+sub_total.write("rm Results/Raw/*/*.csv\n")
+sub_total.write("rm Results/Raw/*/*.root\n")
 sub_total.write("condor_submit %s\n"%condor_name)
+
 os.system("chmod +x sub_total.jobb")

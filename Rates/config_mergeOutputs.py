@@ -6,7 +6,6 @@ The resulting .csv and .root files will be located in the 'Results' directory. T
 '''
 --------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
 '''
-
 #Write the average instant lumi of the json you ran over
 lumi_in = 1.7617e34
 
@@ -31,20 +30,17 @@ makeFigures = False
 diffLoc = False
 #If yes, please specify the directory where the job outputs are located
 files_dir = "Results/Raw"
-
 '''
---------------------------OPTIONS TO BE FILLED OUT-----------------------------------------
+-------------------------------------------------------------------------------------------
 '''
 
-#run the script
-command = ""
-if diffLoc: command = "python mergeOutputs.py -l %s -t %s -p %s -d %s" %(lumi_in, lumi_target, hlt_ps, files_dir)
-else      : command = "python mergeOutputs.py -l %s -t %s -p %s"       %(lumi_in, lumi_target, hlt_ps)
+# run the script
+if maps == "nomaps": makeFigures = False
 
-command += " -m %s" %maps
+command = "python mergeOutputs.py -l %s -t %s -p %s -m %s" %(lumi_in, lumi_target, hlt_ps, maps)
 
-if maps =="nomaps":
-   makeFigures = False
+if diffLoc:
+   command += " -d %s" %(files_dir)
 
 if makeFigures:
    command += " -f"
@@ -54,6 +50,10 @@ import os
 os.system(command)
 
 if makeFigures: 
-   comm2 = "python Draw.py"
-   if maps == "allmaps": comm2 += " -m yes"
-   os.system(comm2)
+
+   command_2 = "python Draw.py"
+
+   if maps == "allmaps":
+      command_2 += " -m yes"
+
+   os.system(command_2)
