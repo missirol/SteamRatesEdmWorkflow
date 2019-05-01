@@ -72,7 +72,6 @@ for globalFile in globalFiles:
                 n_eventsLoop += int(row[1])
             elif row[0] == "N_eventsProcessed":
                 n_events += int(row[1])
-            
 
 LS_length = 23.31 #seconds
 scaleFactor = opts.lumiTarget/opts.lumiIn * opts.hltPS  /  ( nLS * LS_length ) 

@@ -1,9 +1,6 @@
-import os
-import math
-import shlex
-import subprocess
-import csv
-import ROOT
+#!/usr/bin/env python
+import os, math, shlex, subprocess, csv, ROOT
+
 #from Menu_HLT import datasetMap as triggersDatasetMap
 
 datasets_for_corr=[
@@ -193,33 +190,37 @@ def makeListsOfRawOutputs(files_dir, fig):
         stdout, stderr = ls_command.communicate()
         for line in stdout.splitlines():
             file_string = total_dir + "/" + line
-            ffile = ROOT.TFile(file_string,"R")
-            if ffile.IsZombie() or ffile.TestBit(ROOT.TFile.kRecovered):
+            ffile = ROOT.TFile.Open(file_string)
+            if (not ffile) or ffile.IsZombie() or ffile.TestBit(ROOT.TFile.kRecovered):
                 nnumber = findFileNumber(file_string)
                 if not nnumber in bad_jobs:
-                    bad_jobs.append(nnumber)
+                   bad_jobs.append(nnumber)
+            ffile.Close()
 
     for name in mergeNames:
-        key = name+".csv"
 
         total_dir = files_dir + "/" + mergeNames[name]
-        ls_command = runCommand("ls " + total_dir )
-        stdout, stderr = ls_command.communicate()
-        for line in stdout.splitlines():
-            file_string = total_dir + "/" + line
-            try:
-                with open(file_string) as ffile:
-                    reader=csv.reader(ffile, delimiter=',')
-                    for row in reader:
-                        r = row[1]
-                        break
-            except:
-                nnumber = findFileNumber(file_string)
-                if not nnumber in bad_jobs:
-                    bad_jobs.append(nnumber)
 
+        if os.path.isdir(total_dir):
 
-    print bad_jobs
+           ls_command = runCommand("ls " + total_dir )
+           stdout, stderr = ls_command.communicate()
+           for line in stdout.splitlines():
+               file_string = total_dir + "/" + line
+               try:
+                   with open(file_string) as ffile:
+                       reader=csv.reader(ffile, delimiter=',')
+                       for row in reader:
+                           r = row[1]
+                           break
+               except:
+                   nnumber = findFileNumber(file_string)
+                   if not nnumber in bad_jobs:
+                       bad_jobs.append(nnumber)
+
+    if len(bad_jobs) > 0: print ' > aux.py -- makeListsOfRawOutputs -- List of "Bad" Jobs:', bad_jobs
+    else                : print ' > aux.py -- makeListsOfRawOutputs -- All output files marked as "Good"'
+
     globalFiles = []
     total_dir = files_dir + "/Global"
     ls_command = runCommand("ls " + total_dir)
@@ -248,24 +249,26 @@ def makeListsOfRawOutputs(files_dir, fig):
                     break
             if not bad:
                 rootFiles.append(file_string)
-    
+
     masterDic = {}
     for name in mergeNames:
         key = name+".csv"
         masterDic[key] = []
 
         total_dir = files_dir + "/" + mergeNames[name]
-        ls_command = runCommand("ls " + total_dir )
-        stdout, stderr = ls_command.communicate()
-        for line in stdout.splitlines():
-            file_string = total_dir + "/" + line
-            bad = False
-            for number in bad_jobs:
-                if number in file_string:
-                    bad = True
-                    break
-            if not bad:
-                masterDic[key].append(file_string)
 
+        if os.path.isdir(total_dir):
+
+           ls_command = runCommand("ls " + total_dir )
+           stdout, stderr = ls_command.communicate()
+           for line in stdout.splitlines():
+               file_string = total_dir + "/" + line
+               bad = False
+               for number in bad_jobs:
+                   if number in file_string:
+                       bad = True
+                       break
+               if not bad:
+                   masterDic[key].append(file_string)
 
     return masterDic, rootFiles, globalFiles
