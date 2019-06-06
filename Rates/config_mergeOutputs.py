@@ -10,7 +10,8 @@ The resulting .csv and .root files will be located in the 'Results' directory. T
 lumi_in = 1.7617e34
 
 #Write the TARGET lumi for which you wish to calculate rates
-lumi_target = 2.0e34
+lumi_target = 1.9e34
+#lumi_target = 1.7617e34
 
 #Write the HLT prescale used in the json you ran over
 hlt_ps = 1100
